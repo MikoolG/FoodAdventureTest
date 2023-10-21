@@ -1,17 +1,18 @@
-# app/workers/csv_import_worker.rb
 require 'open-uri'
 require 'csv'
+require 'open-uri'
 
-class CsvImportWorker
+class SfImportWorker
   include Sidekiq::Worker
 
   def perform
     csv_url = 'https://data.sfgov.org/api/views/rqzj-sfat/rows.csv?accessType=DOWNLOAD'
-    csv_text = open(csv_url).read
+    csv_text = URI.open(csv_url).read
     csv = CSV.parse(csv_text, headers: true)
 
     # Verify headers
-    expected_headers = ["locationid", "Applicant", "FacilityType", "cnn", "LocationDescription", "Address", "blocklot", "block", "lot", "permit", "Status", "FoodItems", "X", "Y", "Latitude", "Longitude", "Schedule", "dayshours", "NOISent", "Approved", "Received", "PriorPermit", "ExpirationDate", "Location", "Fire Prevention Districts", "Police Districts", "Supervisor Districts", "Zip Codes"]
+    expected_headers = ['locationid', 'Applicant', 'FacilityType', 'cnn', 'LocationDescription', 'Address', 'blocklot',
+                        'block', 'lot', 'permit', 'Status', 'FoodItems', 'X', 'Y', 'Latitude', 'Longitude', 'Schedule', 'dayshours', 'NOISent', 'Approved', 'Received', 'PriorPermit', 'ExpirationDate', 'Location', 'Fire Prevention Districts', 'Police Districts', 'Supervisor Districts', 'Zip Codes', 'Neighborhoods (old)']
     return unless csv.headers == expected_headers
 
     # Process CSV rows
@@ -29,7 +30,7 @@ class CsvImportWorker
         longitude: row['Longitude'],
         schedule: row['Schedule'],
         days_hours: row['dayshours'],
-        active: true  # Set active to true for all records in the CSV
+        active: true # Set active to true for all records in the CSV
       )
     end
 

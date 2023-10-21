@@ -12,7 +12,7 @@ class CreateAdventures < ActiveRecord::Migration[7.0]
 
       t.timestamps
     end
-    
+
     add_index :adventures, :city
     add_index :adventures, :state
     add_index :adventures, :food_preference

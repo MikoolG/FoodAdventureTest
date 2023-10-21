@@ -15,7 +15,7 @@ class CreateFoodTrucks < ActiveRecord::Migration[7.0]
 
       t.timestamps
     end
-    
+
     add_index :food_trucks, :facility_type
     add_index :food_trucks, :status
     add_index :food_trucks, :food_items
