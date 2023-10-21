@@ -14,9 +14,9 @@ class SmsService
       adventure.process_next_truck
     when 'stop'
       adventure.stop
-      { 
-        message: "🛑 Your adventure has been stopped. If you feel like doing a new adventure sometime headback to our website!",
-        status: :stopped 
+      {
+        message: '🛑 Your adventure has been stopped. If you feel like doing a new adventure sometime headback to our website!',
+        status: :stopped
       }
     when 'abandon'
       adventure.abandon
@@ -30,6 +30,5 @@ class SmsService
         status: nil
       }
     end
-  end
   end
 end
