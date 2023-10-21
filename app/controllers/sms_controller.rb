@@ -3,12 +3,12 @@ class SmsController < ApplicationController
 
   def receive
     adventure = Adventure.find_by(phone_number: params[:From])
-    # Assume a simple keyword-based system for this example
+    return unless adventure
+
     case params[:Body].downcase
     when 'complete'
       adventure.update(status: :complete)
       SmsService.send_sms(adventure.phone_number, 'Adventure completed!')
-      # ... other cases ...
     end
   end
 end
