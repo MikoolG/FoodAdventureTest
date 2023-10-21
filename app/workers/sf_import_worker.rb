@@ -20,12 +20,12 @@ class SfImportWorker
     applicant_names_in_csv = []
     csv.each do |row|
       applicant_names_in_csv << row['Applicant']
-    
+
       expiration_date_str = row['expiration_date']
       expiration_date = unless expiration_date_str.blank?
-        DateTime.strptime(expiration_date_str, '%m/%d/%Y %I:%M:%S %p').to_date
-      end
-    
+                          DateTime.strptime(expiration_date_str, '%m/%d/%Y %I:%M:%S %p').to_date
+                        end
+
       food_truck = FoodTruck.find_or_initialize_by(applicant: row['Applicant'])
       food_truck.update(
         facility_type: row['FacilityType'],
@@ -37,7 +37,7 @@ class SfImportWorker
         longitude: row['Longitude'],
         schedule: row['Schedule'],
         days_hours: row['dayshours'],
-        expiration_date: expiration_date,
+        expiration_date:,
         active: true
       )
     end

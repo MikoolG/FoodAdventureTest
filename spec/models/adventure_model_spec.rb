@@ -21,5 +21,26 @@ RSpec.describe Adventure, type: :model do
 
   it { should validate_numericality_of(:number_of_trucks).is_greater_than_or_equal_to(1) }
   it { should_not allow_value(0).for(:number_of_trucks) }
-  it { should define_enum_for(:status).with_values(in_progress: 0, complete: 1, stopped: 2, abandoned: 3) }
+  it {
+    should define_enum_for(:status).with_values(awaiting_start: 0, in_progress: 1, complete: 2, stopped: 3,
+                                                abandoned: 4)
+  }
+
+  describe 'callbacks' do
+    let(:adventure) { create(:adventure, status: 'in_progress') }
+
+    it 'clears phone_number when status changes to complete, stopped, or abandoned' do
+      %w[complete stopped abandoned].each do |final_status|
+        adventure.update(status: final_status)
+        expect(adventure.reload.phone_number).to be_nil
+      end
+    end
+
+    it 'schedules an SMS job when created with awaiting_start status' do
+      adventure = build(:adventure, status: 'awaiting_start')
+      expect do
+        adventure.save
+      end.to have_enqueued_job(AdventureJob).with(adventure.id)
+    end
+  end
 end

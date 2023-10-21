@@ -39,7 +39,7 @@ RSpec.describe FoodTruck, type: :model do
   end
 
   describe '#expired?' do
-    let(:food_truck) { create(:food_truck, expiration_date: expiration_date) }
+    let(:food_truck) { create(:food_truck, expiration_date:) }
 
     context 'when expiration date is in the past' do
       let(:expiration_date) { 2.days.ago }

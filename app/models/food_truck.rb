@@ -10,6 +10,7 @@ class FoodTruck < ApplicationRecord
 
   def expired?
     return true if expiration_date.nil?
+
     expiration_date < Date.today
   end
 

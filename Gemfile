@@ -38,6 +38,8 @@ gem 'sidekiq-scheduler'
 gem 'factory_bot_rails'
 gem 'webmock', require: false
 
+gem 'faker'
+gem 'pry'
 gem 'rubocop', require: false
 
 gem 'twilio-ruby', '~> 6.8.0'
