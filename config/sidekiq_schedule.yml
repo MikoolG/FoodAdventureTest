@@ -1,0 +1,3 @@
+sf_import_worker:
+  cron: "0 0 * * *"
+  class: SfImportWorker

@@ -3,7 +3,21 @@ import "@hotwired/turbo-rails"
 import "controllers"
 
 
-function toggleModal() {
-    const modal = document.getElementById('adventureModal');
-    modal.classList.toggle('hidden');
-}
+document.addEventListener('DOMContentLoaded', () => {
+    const openModalButton = document.getElementById('beginAdventureBtn');
+    const closeModalButton = document.getElementById('closeAdventureBtn');
+    const modal = document.getElementById('modal');
+    const body = document.body;
+  
+    if (openModalButton && closeModalButton && modal) {
+      openModalButton.addEventListener('click', () => {
+        modal.classList.toggle('hidden');
+        body.classList.add('no-scroll');
+      });
+  
+      closeModalButton.addEventListener('click', () => {
+        modal.classList.add('hidden');
+        body.classList.remove('no-scroll');
+      });
+    }
+  });

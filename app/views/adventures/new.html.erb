@@ -1,0 +1,68 @@
+
+<%# Banner %>
+<div class="relative pt-14">
+  <img src="<%= image_url('FoodTruck.png') %>" alt="Banner" class="w-full">
+
+  <div class="absolute top-2 left-1/2 transform -translate-x-1/2 text-center p-4 md:bg-transparent md:rounded-none bg-black bg-opacity-40 rounded-lg">
+    <div>
+      <h1 class="text-white md:text-black text-7xl font-bold oldstyle-nums">FOOD TRUCK</h1>
+      <h2 class="text-white md:text-black text-3xl font-semibold">ADVENTURE</h2>
+    </div>
+  </div>
+</div>
+
+<%# Begin Adventure Section %>
+<div class="py-16 bg-gray-100">
+  <div class="text-center">
+    <h2 class="text-4xl font-bold text-gray-900">BEGIN ADVENTURE</h2>
+  </div>
+  <div class="mt-8 max-w-2xl mx-auto">
+    <p class="text-lg text-gray-700 text-center">
+      Embark on a personalized Food Truck Adventure! Select your favorite cuisines or dishes, specify the number of trucks you'd like to visit, and set your adventure timing. Our system will craft an optimal route for you.
+    </p>
+    <div class="text-center pt-8">
+      <button id="beginAdventureBtn" class="bg-pink border-3 border-black rounded-[30px] px-4 py-2 text-white font-bold tracking-wide shadow-md hover:opacity-70">
+          BEGIN ADVENTURE
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<div class="py-16">
+  <div class="text-center">
+    <h2 class="text-4xl font-bold text-gray-900">How It Works</h2>
+  </div>
+  <div class="mt-8 max-w-2xl mx-auto">
+    <ol class="text-lg text-gray-700 list-decimal list-inside">
+      <li>
+        <strong>Select Preferences:</strong> Choose your cuisines or specific dishes, and input any dietary restrictions.
+      </li>
+      <li>
+        <strong>Number of Trucks & Timing:</strong> Specify the number of trucks and set your adventure's start and end times.
+      </li>
+      <li>
+        <strong>Adventure Initialization:</strong> Receive a message at the start time guiding you to the first truck.
+      </li>
+      <li>
+        <strong>Interactive Messaging:</strong> Send "arrived" upon reaching a truck, and "done" once you’re ready to move on.
+      </li>
+      <li>
+        <strong>Emergency Stop:</strong> Send "stop" to pause the adventure anytime.
+      </li>
+      <li>
+        <strong>Safety Measures:</strong> Enjoy a secure messaging system prioritizing your privacy.
+      </li>
+      <li>
+        <strong>Adventure Conclusion:</strong> Receive a congratulatory message upon completing the adventure.
+      </li>
+      <li>
+        <strong>Feedback:</strong> Rate your experience and provide feedback for continual improvement.
+      </li>
+    </ol>
+  </div>
+</div>
+
+
+<%# Modal %>
+<%= render "adventure_modal" %>

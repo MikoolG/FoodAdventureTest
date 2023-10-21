@@ -10,7 +10,14 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+        sans: ['Playpen Sans', ...defaultTheme.fontFamily.sans],
+      },
+      colors: {
+        blue: '#00CAE3',
+        pink: '#FF7F96',
+      },
+      borderWidth: {
+        '3': '3px'
       },
     },
   },

@@ -13,3 +13,13 @@
  *= require_tree .
  *= require_self
  */
+
+
+ .no-scroll {
+    overflow: hidden;
+  }
+  
+  #modal .bg-white {
+    max-height: 80%;
+    overflow-y: auto;
+  }
