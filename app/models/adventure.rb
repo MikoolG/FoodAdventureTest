@@ -9,6 +9,9 @@ class Adventure < ApplicationRecord
     abandoned: 4
   }
 
+  has_many :adventure_food_trucks, dependent: :destroy
+  has_many :food_trucks, through: :adventure_food_trucks
+
   validates :phone_number, presence: true, format: { with: /\A\d{10}\z/, message: 'must be 10 digits long' }
   validates :food_preference, presence: true
   validates :city, presence: true
@@ -20,6 +23,20 @@ class Adventure < ApplicationRecord
 
   before_update :clear_phone_number, if: :status_changed_to_final?
   after_create :schedule_initial_sms
+
+  def next_truck
+    adventure_food_trucks.find_by(order: current_truck_index)&.food_truck
+  end
+
+  def advance_to_next_truck!
+    return unless next_truck
+
+    update!(current_truck_index: current_truck_index + 1)
+  end
+
+  def on_last_truck?
+    current_truck_index >= adventure_food_trucks.count - 1
+  end
 
   private
 

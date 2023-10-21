@@ -12,7 +12,7 @@ class CreateAdventures < ActiveRecord::Migration[7.0]
       t.date :adventure_day
       t.time :adventure_start_time
       t.integer :status, default: 0
-
+      t.integer :current_truck_index, default: 0
       t.timestamps
     end
 

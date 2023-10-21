@@ -10,6 +10,9 @@ RSpec.describe Adventure, type: :model do
   it { should validate_presence_of(:adventure_day) }
   it { should validate_presence_of(:adventure_start_time) }
 
+  it { should have_many(:adventure_food_trucks).dependent(:destroy) }
+  it { should have_many(:food_trucks).through(:adventure_food_trucks) }
+
   it { should allow_value('1234567890').for(:phone_number) }
   it { should_not allow_value('123456789').for(:phone_number) }
 
@@ -41,6 +44,39 @@ RSpec.describe Adventure, type: :model do
       expect do
         adventure.save
       end.to have_enqueued_job(AdventureJob).with(adventure.id)
+    end
+  end
+
+  describe 'trucking methods' do
+    let(:adventure) { create(:adventure) }
+    let(:food_trucks) { create_list(:food_truck, 3) }
+
+    before do
+      food_trucks.each_with_index do |food_truck, index|
+        AdventureFoodTruck.create(adventure:, food_truck:, order: index)
+      end
+    end
+
+    it '#next_truck returns the correct food truck' do
+      expect(adventure.next_truck).to eq(food_trucks.first)
+    end
+
+    it '#advance_to_next_truck! updates the current_truck_index' do
+      expect { adventure.advance_to_next_truck! }.to change { adventure.reload.current_truck_index }.by(1)
+    end
+
+    it '#on_last_truck? returns true when on last truck' do
+      adventure.update!(current_truck_index: 2)
+      expect(adventure.on_last_truck?).to be_truthy
+    end
+
+    it '#on_last_truck? returns false when not on last truck' do
+      expect(adventure.on_last_truck?).to be_falsey
+    end
+
+    it '#advance_to_next_truck! does nothing when no next truck' do
+      adventure.update!(current_truck_index: 3)  # Assumes there are only 3 trucks
+      expect { adventure.advance_to_next_truck! }.not_to(change { adventure.reload.current_truck_index })
     end
   end
 end

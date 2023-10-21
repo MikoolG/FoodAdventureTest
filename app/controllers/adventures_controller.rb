@@ -8,7 +8,6 @@ class AdventuresController < ApplicationController
   def create
     @adventure = Adventure.new(adventure_params)
     if @adventure.save
-      # Logic for SMS or any immediate response after creation
       redirect_to @adventure
     else
       render :new
@@ -17,7 +16,6 @@ class AdventuresController < ApplicationController
 
   def show
     @adventure = Adventure.find(params[:id])
-    # Any additional logic for showing the adventure details
   end
 
   private
