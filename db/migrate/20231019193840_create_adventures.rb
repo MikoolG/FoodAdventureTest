@@ -11,6 +11,7 @@ class CreateAdventures < ActiveRecord::Migration[7.0]
       t.integer :number_of_trucks
       t.date :adventure_day
       t.time :adventure_start_time
+      t.integer :status, default: 0
 
       t.timestamps
     end
@@ -18,5 +19,6 @@ class CreateAdventures < ActiveRecord::Migration[7.0]
     add_index :adventures, :city
     add_index :adventures, :state
     add_index :adventures, :food_preference
+    add_index :adventures, :status
   end
 end

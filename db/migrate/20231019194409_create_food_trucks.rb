@@ -14,6 +14,7 @@ class CreateFoodTrucks < ActiveRecord::Migration[7.0]
       t.string :schedule
       t.string :days_hours
       t.boolean :active, default: true
+      t.date :expiration_date
 
       t.timestamps
     end

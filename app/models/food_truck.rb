@@ -1,6 +1,19 @@
 # frozen_string_literal: true
 
 class FoodTruck < ApplicationRecord
-  validates :applicant, :facility_type, :address, :status, presence: true
-  validates :latitude, :longitude, numericality: true, allow_blank: true
+  before_save :normalize_applicant_name
+  validates :applicant, uniqueness: true
+  validates :applicant, :facility_type, :address, :status, :latitude, :longitude, presence: true
+  validates :applicant, :address, length: { maximum: 255 }
+
+  scope :active, -> { where(active: true) }
+
+  def expired?
+    return true if expiration_date.nil?
+    expiration_date < Date.today
+  end
+
+  def normalize_applicant_name
+    self.applicant = applicant.titleize
+  end
 end

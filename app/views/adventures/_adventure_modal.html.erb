@@ -10,51 +10,73 @@
       <h2 class="text-4xl font-bold text-gray-900">Begin Adventure</h2>
     </div>
     <%= form_with model: @adventure do |form| %>
-      <div class="mb-4">
-        <%= form.label :phone_number, class: "block text-gray-700" %>
-        <%= form.text_field :phone_number, class: "w-full p-2 border rounded", placeholder: "e.g., (123) 456-7890" %>
-      </div>
-      <div class="mb-4">
-        <%= form.label :food_preference, class: "block text-gray-700" %>
-        <%= form.select :food_preference, 
-            ['Vegan', 'Asian', 'Tacos', 'Desserts', 'Everything'], 
-            {}, 
-            { class: "w-full p-2 border rounded" } 
-        %>
-      </div>
+        <div class="flex flex-wrap -mx-2 mb-4">
+            <div class="w-full md:w-1/2 px-2 mb-4 md:mb-0">
+                <%= form.label :food_preference, class: "block text-gray-700" %>
+                <%= form.select :food_preference, 
+                    ['Vegan', 'Asian', 'Tacos', 'Desserts', 'Everything'], 
+                    {}, 
+                    { class: "w-full p-2 border rounded" } 
+                %>
+            </div>
+            <div class="w-full md:w-1/2 px-2">
+                <%= form.label :number_of_trucks, class: "block text-gray-700" %>
+                <%= form.select :number_of_trucks, 
+                    (1..5).to_a, 
+                    {}, 
+                    { class: "w-full p-2 border rounded" } 
+                %>
+            </div>
+        </div>
       <div class="flex flex-wrap -mx-2 mb-4">
         <div class="w-full md:w-1/2 px-2 mb-4 md:mb-0">
             <%= form.label :city, class: "block text-gray-700" %>
             <%= form.select :city, 
-                ['San Francisco'], 
+                ['', 'San Francisco'], 
                 {}, 
-                { class: "w-full p-2 border rounded" } 
+                { class: "w-full p-2 border rounded", required: true } 
             %>
         </div>
         <div class="w-full md:w-1/2 px-2">
             <%= form.label :zip_code, class: "block text-gray-700" %>
-            <%= form.text_field :zip_code, class: "w-full p-2 border rounded", placeholder: "e.g., 94103" %>
+            <%= form.text_field :zip_code, 
+                class: "w-full p-2 border rounded", 
+                placeholder: "e.g., 94103", 
+                required: true, 
+                pattern: "\d{5}(-\d{4})?", 
+                title: "Please enter a 5 or 9 digit zip code"
+            %>
         </div>
-      </div>
-      <div class="mb-4">
-        <%= form.label :number_of_trucks, class: "block text-gray-700" %>
-        <%= form.select :number_of_trucks, 
-            (1..5).to_a, 
-            {}, 
-            { class: "w-full p-2 border rounded" } 
-        %>
       </div>
       <div class="flex flex-wrap -mx-2 mb-4">
         <div class="w-full md:w-1/2 px-2 mb-4 md:mb-0">
             <%= form.label :adventure_day, class: "block text-gray-700" %>
-            <%= form.date_field :adventure_day, class: "w-full p-2 border rounded", placeholder: "e.g., YYYY-MM-DD" %>
+            <%= form.date_field :adventure_day, 
+                class: "w-full p-2 border rounded", 
+                placeholder: "e.g., YYYY-MM-DD", 
+                required: true 
+            %>
         </div>
         <div class="w-full md:w-1/2 px-2">
             <%= form.label :adventure_start_time, class: "block text-gray-700" %>
-            <%= form.time_field :adventure_start_time, class: "w-full p-2 border rounded", placeholder: "e.g., HH:MM" %>
+            <%= form.time_field :adventure_start_time, 
+                class: "w-full p-2 border rounded", 
+                placeholder: "e.g., HH:MM", 
+                required: true 
+            %>
         </div>
        </div>
-
+      <div class="mb-4">
+        <%= form.label :phone_number, class: "block text-gray-700" %>
+        <p class="text-sm text-gray-500 mb-2">We prioritize your privacy. Your phone number will be kept secure and deleted once the adventure is over, ensuring it's never stored longer than necessary.</p>
+        <%= form.text_field :phone_number, 
+            class: "w-full p-2 border rounded", 
+            placeholder: "e.g., (123) 456-7890", 
+            required: true, 
+            pattern: "\d{10}", 
+            title: "Phone number must be 10 digits long" 
+        %>
+      </div>
       <div class="text-center py-4">
         <button type="submit" class="bg-blue text-white px-8 py-4 rounded">Submit</button>
       </div>
