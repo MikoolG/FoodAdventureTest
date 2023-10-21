@@ -7,7 +7,10 @@ class SmsController < ApplicationController
     adventure = Adventure.find_by(phone_number:)
 
     if adventure.nil?
-      SmsService.send_sms(phone_number, 'No active adventure found.')
+      SmsService.send_sms(
+        phone_number,
+        "🕵️ Oops! It seems like there's no active adventure linked to this number. Craving some culinary quests? Head over to [FoodTruckAdventure.com](https://foodtruckadventure.com) to cook up a new Food Truck Adventure! 🚚🌮"
+      )
       return
     end
 
