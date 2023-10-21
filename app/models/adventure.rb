@@ -38,6 +38,28 @@ class Adventure < ApplicationRecord
     current_truck_index >= adventure_food_trucks.count - 1
   end
 
+  def process_next_truck
+    next_truck = self.next_truck
+    if next_truck
+      {
+        message: "🚚 Vroom, vroom! #{next_truck.applicant} is your next stop at #{next_truck.address}. Get ready for some tasty treats!", status: nil
+      }
+    else
+      complete
+      {
+        message: '🎉 Congratulations on completing your Food Truck Adventure! 🚚💨 You’ve tasted the best bites in town and lived to tell the tale. 🍔🌮🍕 Here’s to many more tasty trails! 🥂', status: :complete
+      }
+    end
+  end
+
+  def stop
+    update(status: :stopped)
+  end
+
+  def complete
+    update(status: :complete)
+  end
+
   private
 
   def status_changed_to_final?

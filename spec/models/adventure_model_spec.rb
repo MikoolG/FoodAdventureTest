@@ -79,4 +79,50 @@ RSpec.describe Adventure, type: :model do
       expect { adventure.advance_to_next_truck! }.not_to(change { adventure.reload.current_truck_index })
     end
   end
+  describe '#process_next_truck' do
+    let(:adventure) { create(:adventure) }
+    let(:food_truck) { create(:food_truck) }
+
+    before do
+      AdventureFoodTruck.create(adventure:, food_truck:, order: 0)
+    end
+
+    context 'when there is a next truck' do
+      it 'returns a message with the next truck details' do
+        result = adventure.process_next_truck
+        expected_message = "Next stop: #{food_truck.applicant} at #{food_truck.address}. Enjoy!"
+        expect(result[:message]).to eq(expected_message)
+        expect(result[:status]).to be_nil
+      end
+    end
+
+    context 'when there are no more trucks' do
+      it 'updates the adventure status to complete and returns a completion message' do
+        adventure.update!(current_truck_index: 1)
+        result = adventure.process_next_truck
+        expected_message = 'Congratulations on completing your adventure!'
+        expect(result[:message]).to eq(expected_message)
+        expect(result[:status]).to eq(:complete)
+        expect(adventure.reload.status).to eq('complete')
+      end
+    end
+  end
+
+  describe '#stop' do
+    let(:adventure) { create(:adventure, status: 'in_progress') }
+
+    it 'updates the adventure status to stopped' do
+      adventure.stop
+      expect(adventure.reload.status).to eq('stopped')
+    end
+  end
+
+  describe '#complete' do
+    let(:adventure) { create(:adventure, status: 'in_progress') }
+
+    it 'updates the adventure status to complete' do
+      adventure.complete
+      expect(adventure.reload.status).to eq('complete')
+    end
+  end
 end
