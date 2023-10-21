@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :food_truck do
     applicant { 'Test Applicant' }

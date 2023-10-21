@@ -1,6 +1,7 @@
+# frozen_string_literal: true
+
 require 'open-uri'
 require 'csv'
-require 'open-uri'
 
 class SfImportWorker
   include Sidekiq::Worker
