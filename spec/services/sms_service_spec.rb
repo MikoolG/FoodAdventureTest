@@ -40,7 +40,7 @@ RSpec.describe SmsService do
       it 'stops the adventure' do
         expect(adventure).to receive(:stop)
         result = SmsService.process_command(adventure, 'stop')
-        expect(result).to eq({ message: "🛑 Your adventure has been stopped. If you feel like doing a new adventure sometime headback to our website!",
+        expect(result).to eq({ message: '🛑 Your adventure has been stopped. If you feel like doing a new adventure sometime headback to our website!',
                                status: :stopped })
       end
     end
