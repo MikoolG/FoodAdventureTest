@@ -10,8 +10,10 @@ FactoryBot.define do
     adventure_start_time { Faker::Time.forward(days: 30, period: :morning) } # Random time within next 30 days
     status { Adventure.statuses.keys.sample } # Random status from defined enum
 
-    after(:create) do |adventure|
-      create(:adventure_food_truck, adventure:, food_truck: create(:food_truck))
+    trait :with_food_truck do
+      after(:create) do |adventure|
+        create(:adventure_food_truck, adventure:, food_truck: create(:food_truck))
+      end
     end
   end
 end

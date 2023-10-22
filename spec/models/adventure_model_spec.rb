@@ -90,7 +90,7 @@ RSpec.describe Adventure, type: :model do
     context 'when there is a next truck' do
       it 'returns a message with the next truck details' do
         result = adventure.process_next_truck
-        expected_message = "Next stop: #{food_truck.applicant} at #{food_truck.address}. Enjoy!"
+        expected_message = "🚚 Vroom, vroom! #{food_truck.applicant} is your next stop at #{food_truck.address}. Get ready for some tasty treats!"
         expect(result[:message]).to eq(expected_message)
         expect(result[:status]).to be_nil
       end
@@ -100,7 +100,7 @@ RSpec.describe Adventure, type: :model do
       it 'updates the adventure status to complete and returns a completion message' do
         adventure.update!(current_truck_index: 1)
         result = adventure.process_next_truck
-        expected_message = 'Congratulations on completing your adventure!'
+        expected_message = '🎉 Congratulations on completing your Food Truck Adventure! 🚚💨 You’ve tasted the best bites in town and lived to tell the tale. 🍔🌮🍕 Here’s to many more tasty trails! 🥂'
         expect(result[:message]).to eq(expected_message)
         expect(result[:status]).to eq(:complete)
         expect(adventure.reload.status).to eq('complete')

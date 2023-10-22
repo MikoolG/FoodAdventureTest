@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe AdventureJob, type: :job do
   include ActiveJob::TestHelper
 
-  let(:adventure) { create(:adventure) }
+  let(:adventure) { create(:adventure, :with_food_truck) }
   let(:sms_service) { instance_double(SmsService) }
 
   before do
