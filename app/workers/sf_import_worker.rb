@@ -6,10 +6,9 @@ require 'csv'
 class SfImportWorker
   include Sidekiq::Worker
 
-  CSV_URL = 'https://data.sfgov.org/api/views/rqzj-sfat/rows.csv?accessType=DOWNLOAD'.freeze
+  CSV_URL = 'https://data.sfgov.org/api/views/rqzj-sfat/rows.csv?accessType=DOWNLOAD'
   EXPECTED_HEADERS = ['locationid', 'Applicant', 'FacilityType', 'cnn', 'LocationDescription', 'Address', 'blocklot',
                       'block', 'lot', 'permit', 'Status', 'FoodItems', 'X', 'Y', 'Latitude', 'Longitude', 'Schedule', 'dayshours', 'NOISent', 'Approved', 'Received', 'PriorPermit', 'ExpirationDate', 'Location', 'Fire Prevention Districts', 'Police Districts', 'Supervisor Districts', 'Zip Codes', 'Neighborhoods (old)'].freeze
-                      
 
   def perform
     return unless valid_headers?
@@ -32,7 +31,7 @@ class SfImportWorker
 
   def csv_text
     URI.open(CSV_URL).read
-  rescue => e
+  rescue StandardError => e
     Rails.logger.error("Failed to fetch CSV from #{CSV_URL}: #{e.message}")
     ''
   end
@@ -52,12 +51,12 @@ class SfImportWorker
       address: row['Address'],
       status: row['Status'],
       food_items: row['FoodItems'],
-      categories: categories,
+      categories:,
       latitude: row['Latitude'],
       longitude: row['Longitude'],
       schedule: row['Schedule'],
       days_hours: row['dayshours'],
-      expiration_date: expiration_date,
+      expiration_date:,
       active: true
     )
     food_truck.save!
@@ -65,13 +64,12 @@ class SfImportWorker
 
   def categorize_food(food_items)
     return [] unless food_items
+
     categories = []
-    
+
     FoodTruck::CATEGORIES.each do |category, keywords|
-        if keywords.any? { |keyword| food_items.downcase.include?(keyword.downcase) }
-          categories << category
-        end
-      end
+      categories << category if keywords.any? { |keyword| food_items.downcase.include?(keyword.downcase) }
+    end
 
     categories
   end

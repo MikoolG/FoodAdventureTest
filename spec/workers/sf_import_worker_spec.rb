@@ -29,24 +29,26 @@ RSpec.describe SfImportWorker, type: :worker do
     end
 
     it 'checks for correct headers in the CSV file' do
-      allow(URI).to receive(:open).with(csv_url).and_return(File.open(Rails.root.join('spec', 'fixtures', 'invalid_headers.csv')))
-      expect { SfImportWorker.new.perform }.not_to change { FoodTruck.count }
+      allow(URI).to receive(:open).with(csv_url).and_return(File.open(Rails.root.join('spec', 'fixtures',
+                                                                                      'invalid_headers.csv')))
+      expect { SfImportWorker.new.perform }.not_to(change { FoodTruck.count })
     end
 
     it 'handles an empty CSV file gracefully' do
       allow(URI).to receive(:open).with(csv_url).and_return(File.open(Rails.root.join('spec', 'fixtures', 'empty.csv')))
-      expect { SfImportWorker.new.perform }.not_to change { FoodTruck.count }
+      expect { SfImportWorker.new.perform }.not_to(change { FoodTruck.count })
     end
 
     it 'raises an error for a malformed CSV file' do
-      allow(URI).to receive(:open).with(csv_url).and_return(File.open(Rails.root.join('spec', 'fixtures', 'malformed.csv')))
+      allow(URI).to receive(:open).with(csv_url).and_return(File.open(Rails.root.join('spec', 'fixtures',
+                                                                                      'malformed.csv')))
       expect { SfImportWorker.new.perform }.to raise_error(CSV::MalformedCSVError)
     end
 
     it 'categorizes food items correctly' do
-        SfImportWorker.new.perform
-        binding.pry
-        expect(FoodTruck.find_by(applicant: 'Existing Applicant').categories).to include('Beverages')
-      end
+      SfImportWorker.new.perform
+      binding.pry
+      expect(FoodTruck.find_by(applicant: 'Existing Applicant').categories).to include('Beverages')
+    end
   end
 end
