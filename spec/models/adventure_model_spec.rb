@@ -80,7 +80,7 @@ RSpec.describe Adventure, type: :model do
     end
   end
   describe '#process_next_truck' do
-    let(:adventure) { create(:adventure) }
+    let(:adventure) { create(:adventure, status: 'in_progress') }
     let(:food_truck) { create(:food_truck) }
 
     before do

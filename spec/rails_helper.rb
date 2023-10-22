@@ -48,8 +48,15 @@ RSpec.configure do |config|
     ActiveJob::Base.queue_adapter = :test
   end
 
-  config.before(:each) do
-    DatabaseCleaner.clean
+  config.before(:suite) do
+    DatabaseCleaner[:redis].strategy = :deletion
+    DatabaseCleaner.clean_with(:deletion)
+  end
+  
+  config.around(:each) do |example|
+    DatabaseCleaner.cleaning do
+      example.run
+    end
   end
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and

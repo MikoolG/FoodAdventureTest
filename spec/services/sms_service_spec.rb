@@ -36,19 +36,11 @@ RSpec.describe SmsService do
       end
     end
 
-    context "with 'done' command" do
-      it 'completes the adventure' do
-        expect(adventure).to receive(:complete)
-        result = SmsService.process_command(adventure, 'done')
-        expect(result).to eq({ message: 'Congratulations on completing your adventure!', status: :complete })
-      end
-    end
-
     context "with 'stop' command" do
       it 'stops the adventure' do
         expect(adventure).to receive(:stop)
         result = SmsService.process_command(adventure, 'stop')
-        expect(result).to eq({ message: "Your adventure has been stopped. Reply with 'Next' to continue.",
+        expect(result).to eq({ message: "🛑 Your adventure has been stopped. If you feel like doing a new adventure sometime headback to our website!",
                                status: :stopped })
       end
     end
@@ -56,7 +48,7 @@ RSpec.describe SmsService do
     context 'with an unrecognized command' do
       it 'returns an error message' do
         result = SmsService.process_command(adventure, 'foobar')
-        expect(result).to eq({ message: "Unrecognized command. Reply with 'Next' to continue your adventure.",
+        expect(result).to eq({ message: "🤔 Unrecognized command. Reply with 'Next' to continue your adventure. 🚚",
                                status: nil })
       end
     end

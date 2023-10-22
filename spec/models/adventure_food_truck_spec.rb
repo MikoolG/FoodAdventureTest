@@ -19,7 +19,6 @@ RSpec.describe AdventureFoodTruck, type: :model do
     let!(:aft_1) { AdventureFoodTruck.create(adventure: adventure, food_truck: food_truck_1, order: 2) }
     let!(:aft_2) { AdventureFoodTruck.create(adventure: adventure, food_truck: food_truck_2, order: 1) }
     
-
     it 'returns adventure_food_trucks in order' do
       expect(AdventureFoodTruck.ordered).to eq([aft_2, aft_1])
     end

@@ -26,7 +26,7 @@ class SmsService
       }
     else
       {
-        message: "🤔 Unrecognized command. Reply with 'Next' to continue your adventure. 🚚💨",
+        message: "🤔 Unrecognized command. Reply with 'Next' to continue your adventure. 🚚",
         status: nil
       }
     end
