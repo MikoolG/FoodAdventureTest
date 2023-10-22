@@ -21,8 +21,8 @@ class Adventure < ApplicationRecord
   validates :adventure_day, presence: true
   validates :adventure_start_time, presence: true
 
-  geocoded_by :zipcode
-  after_validation :geocode, if: :will_save_change_to_zipcode?
+  geocoded_by :zip_code
+  after_validation :geocode
 
   before_update :clear_phone_number, if: :status_changed_to_final?
   after_create :schedule_initial_sms

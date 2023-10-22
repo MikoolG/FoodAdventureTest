@@ -127,7 +127,7 @@ RSpec.describe Adventure, type: :model do
   end
 
   describe 'geocoding', vcr: { cassette_name: 'geocoding' } do
-    let(:adventure) { build(:adventure, zip_code: '12345') }
+    let(:adventure) { build(:adventure, zip_code: '89101') }
   
     it 'geocodes the adventure based on its zip code' do
       adventure.save

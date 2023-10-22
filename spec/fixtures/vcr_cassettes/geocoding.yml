@@ -1,0 +1,49 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://nominatim.openstreetmap.org/search?accept-language=en&addressdetails=1&format=json&q=89101
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx
+      Date:
+      - Sun, 22 Oct 2023 21:54:52 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '1935'
+      Connection:
+      - keep-alive
+      Keep-Alive:
+      - timeout=20
+    body:
+      encoding: UTF-8
+      string: '[{"place_id":328382340,"licence":"Data © OpenStreetMap contributors,
+        ODbL 1.0. http://osm.org/copyright","lat":"42.71258309860209","lon":"18.348072135696004","class":"place","type":"postcode","place_rank":21,"importance":0.22500009999999993,"addresstype":"postcode","name":"89101","display_name":"Trebinje,
+        City of Trebinje, 89101, Republika Srpska, Bosnia and Herzegovina","address":{"city":"Trebinje","county":"City
+        of Trebinje","postcode":"89101","state":"Republika Srpska","ISO3166-2-lvl4":"BA-SRP","country":"Bosnia
+        and Herzegovina","country_code":"ba"},"boundingbox":["42.5525831","42.8725831","18.1880721","18.5080721"]},{"place_id":330420825,"licence":"Data
+        © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright","lat":"56.31753808333334","lon":"22.302204656666667","class":"place","type":"postcode","place_rank":21,"importance":0.22500009999999993,"addresstype":"postcode","name":"89101","display_name":"Mažeikiai,
+        Mažeikių seniūnija, 89101, Mažeikių rajono savivaldybė, Telsiai County, Lithuania","address":{"town":"Mažeikiai","county":"Mažeikių
+        seniūnija","postcode":"89101","state_district":"Mažeikių rajono savivaldybė","ISO3166-2-lvl5":"LT-26","state":"Telsiai
+        County","ISO3166-2-lvl4":"LT-TE","country":"Lithuania","country_code":"lt"},"boundingbox":["56.1575381","56.4775381","22.1422047","22.4622047"]},{"place_id":331088160,"licence":"Data
+        © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright","lat":"36.16738488079471","lon":"-115.13873768807947","class":"place","type":"postcode","place_rank":21,"importance":0.22500009999999993,"addresstype":"postcode","name":"89101","display_name":"Las
+        Vegas, Clark County, 89101, Nevada, United States","address":{"city":"Las
+        Vegas","county":"Clark County","postcode":"89101","state":"Nevada","ISO3166-2-lvl4":"US-NV","country":"United
+        States","country_code":"us"},"boundingbox":["36.0073849","36.3273849","-115.2987377","-114.9787377"]}]'
+  recorded_at: Sun, 22 Oct 2023 21:54:52 GMT
+recorded_with: VCR 6.2.0
