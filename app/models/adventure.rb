@@ -21,6 +21,9 @@ class Adventure < ApplicationRecord
   validates :adventure_day, presence: true
   validates :adventure_start_time, presence: true
 
+  geocoded_by :zipcode
+  after_validation :geocode, if: :will_save_change_to_zipcode?
+
   before_update :clear_phone_number, if: :status_changed_to_final?
   after_create :schedule_initial_sms
 
@@ -74,5 +77,9 @@ class Adventure < ApplicationRecord
     return unless status == 'awaiting_start'
 
     AdventureJob.set(wait_until: adventure_start_time).perform_later(id)
+  end
+
+  def organize_food_trucks
+    AdventureFoodTruckJob.perform_later(id)
   end
 end

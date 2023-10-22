@@ -119,6 +119,7 @@ GEM
     fugit (1.8.1)
       et-orbi (~> 1, >= 1.2.7)
       raabro (~> 1.4)
+    geocoder (1.8.2)
     globalid (1.2.1)
       activesupport (>= 6.1)
     hashdiff (1.0.1)
@@ -297,6 +298,7 @@ GEM
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.5.0)
+    vcr (6.2.0)
     web-console (4.2.1)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -325,6 +327,7 @@ DEPENDENCIES
   debug
   factory_bot_rails
   faker
+  geocoder
   importmap-rails
   jbuilder
   pg (~> 1.1)
@@ -344,6 +347,7 @@ DEPENDENCIES
   turbo-rails
   twilio-ruby (~> 6.8.0)
   tzinfo-data
+  vcr
   web-console
   webmock
 

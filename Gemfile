@@ -43,6 +43,7 @@ gem 'pry'
 gem 'rubocop', require: false
 
 gem 'twilio-ruby', '~> 6.8.0'
+gem 'geocoder'
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
@@ -86,6 +87,7 @@ group :test do
   gem 'database_cleaner-active_record'
   gem 'database_cleaner-redis'
   gem 'selenium-webdriver'
+  gem 'vcr'
 end
 
 gem 'tailwindcss-rails', '~> 2.0'

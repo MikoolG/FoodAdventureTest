@@ -125,4 +125,14 @@ RSpec.describe Adventure, type: :model do
       expect(adventure.reload.status).to eq('complete')
     end
   end
+
+  describe 'geocoding', vcr: { cassette_name: 'geocoding' } do
+    let(:adventure) { build(:adventure, zip_code: '12345') }
+  
+    it 'geocodes the adventure based on its zip code' do
+      adventure.save
+      expect(adventure.latitude).not_to be_nil
+      expect(adventure.longitude).not_to be_nil
+    end
+  end
 end
