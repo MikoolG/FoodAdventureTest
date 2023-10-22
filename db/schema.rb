@@ -30,8 +30,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_21_224249) do
     t.string "city"
     t.string "state"
     t.string "zip_code"
-    t.float "latitude"
-    t.float "longitude"
+    t.decimal "latitude", precision: 9, scale: 6
+    t.decimal "longitude", precision: 9, scale: 6
     t.integer "number_of_trucks"
     t.date "adventure_day"
     t.time "adventure_start_time"
@@ -51,9 +51,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_21_224249) do
     t.text "location_description"
     t.string "address"
     t.string "status"
+    t.text "categories", default: [], array: true
     t.text "food_items"
-    t.float "latitude"
-    t.float "longitude"
+    t.decimal "latitude", precision: 9, scale: 6
+    t.decimal "longitude", precision: 9, scale: 6
     t.string "schedule"
     t.string "days_hours"
     t.boolean "active", default: true

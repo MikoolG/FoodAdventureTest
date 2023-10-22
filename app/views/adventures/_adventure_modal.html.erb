@@ -14,7 +14,7 @@
             <div class="w-full md:w-1/2 px-2 mb-4 md:mb-0">
                 <%= form.label :food_preference, class: "block text-gray-700" %>
                 <%= form.select :food_preference, 
-                    ['Vegan', 'Asian', 'Tacos', 'Desserts', 'Everything'], 
+                    FoodTruck::CATEGORIES.keys, 
                     {}, 
                     { class: "w-full p-2 border rounded" } 
                 %>
@@ -32,9 +32,9 @@
         <div class="w-full md:w-1/2 px-2 mb-4 md:mb-0">
             <%= form.label :city, class: "block text-gray-700" %>
             <%= form.select :city, 
-                ['', 'San Francisco'], 
+                ['San Francisco'], 
                 {}, 
-                { class: "w-full p-2 border rounded", required: true } 
+                { class: "w-full p-2 border rounded" } 
             %>
         </div>
         <div class="w-full md:w-1/2 px-2">

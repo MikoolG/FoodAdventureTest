@@ -8,8 +8,8 @@ class CreateAdventures < ActiveRecord::Migration[7.0]
       t.string :city
       t.string :state
       t.string :zip_code
-      t.float :latitude
-      t.float :longitude
+      t.decimal :latitude, precision: 9, scale: 6
+      t.decimal :longitude, precision: 9, scale: 6
       t.integer :number_of_trucks
       t.date :adventure_day
       t.time :adventure_start_time

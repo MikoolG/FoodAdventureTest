@@ -8,9 +8,10 @@ class CreateFoodTrucks < ActiveRecord::Migration[7.0]
       t.text :location_description
       t.string :address
       t.string :status
+      t.text :categories, array: true, default: []
       t.text :food_items
-      t.float :latitude
-      t.float :longitude
+      t.decimal :latitude, precision: 9, scale: 6
+      t.decimal :longitude, precision: 9, scale: 6
       t.string :schedule
       t.string :days_hours
       t.boolean :active, default: true
