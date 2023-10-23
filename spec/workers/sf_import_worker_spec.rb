@@ -47,7 +47,6 @@ RSpec.describe SfImportWorker, type: :worker do
 
     it 'categorizes food items correctly' do
       SfImportWorker.new.perform
-      binding.pry
       expect(FoodTruck.find_by(applicant: 'Existing Applicant').categories).to include('Beverages')
     end
   end
