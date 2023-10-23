@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe FoodTruck, type: :model do
@@ -33,7 +35,7 @@ RSpec.describe FoodTruck, type: :model do
   describe '.active' do
     it 'returns only active food trucks' do
       active_truck = create(:food_truck, active: true)
-      inactive_truck = create(:food_truck, applicant: 'Unique Applicant', active: false)
+      create(:food_truck, applicant: 'Unique Applicant', active: false)
       expect(described_class.active).to contain_exactly(active_truck)
     end
   end

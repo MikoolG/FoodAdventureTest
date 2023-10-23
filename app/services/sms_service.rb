@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SmsService
   def self.send_sms(phone_number, message)
     client = TwilioClient.client

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 FactoryBot.define do
   factory :adventure do
     phone_number { Faker::Number.number(digits: 10) }

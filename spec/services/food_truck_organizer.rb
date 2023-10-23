@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe FoodTruckOrganizer, type: :service do
@@ -22,7 +24,6 @@ RSpec.describe FoodTruckOrganizer, type: :service do
 
   describe '#organize' do
     it 'returns food trucks based on proximity and food preference' do
-      expected_order = [food_truck_near, food_truck_medium]
       result = subject.organize
 
       expect(result.first).to eq(food_truck_near)

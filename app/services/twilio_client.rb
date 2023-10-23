@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TwilioClient
   def self.client
     Twilio::REST::Client.new(

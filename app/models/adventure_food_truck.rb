@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AdventureFoodTruck < ApplicationRecord
   belongs_to :adventure
   belongs_to :food_truck
