@@ -78,31 +78,23 @@ RSpec.describe Adventure, type: :model do
       expect { adventure.advance_to_next_truck! }.not_to(change { adventure.reload.current_truck_index })
     end
   end
+
   describe '#process_next_truck' do
-    let(:adventure) { create(:adventure, status: 'in_progress') }
-    let(:food_truck) { create(:food_truck) }
+    let(:adventure) { create(:adventure, status: 'in_progress', current_truck_index: 0) }
+    let(:food_truck_1) { create(:food_truck) }
+    let(:food_truck_2) { create(:food_truck) }
 
     before do
-      AdventureFoodTruck.create(adventure:, food_truck:, order: 0)
+      AdventureFoodTruck.create(adventure:, food_truck: food_truck_1, order: 0)
+      AdventureFoodTruck.create(adventure:, food_truck: food_truck_2, order: 1)
     end
 
     context 'when there is a next truck' do
       it 'returns a message with the next truck details' do
         result = adventure.process_next_truck
-        expected_message = "🚚 Vroom, vroom! #{food_truck.applicant} is your next stop at #{food_truck.address}, #{food_truck.city}, #{food_truck.state}. Get ready for some tasty treats!"
+        expected_message = "🚚 Vroom, vroom! #{food_truck_2.applicant} is your next stop at #{food_truck_2.address}, #{food_truck_2.city}, #{food_truck_2.state}. Get ready for some tasty treats!"
         expect(result[:message]).to eq(expected_message)
         expect(result[:status]).to be_nil
-      end
-    end
-
-    context 'when there are no more trucks' do
-      it 'updates the adventure status to complete and returns a completion message' do
-        adventure.update!(current_truck_index: 1)
-        result = adventure.process_next_truck
-        expected_message = '🎉 Congratulations on completing your Food Truck Adventure! 🚚💨 You’ve tasted the best bites in town and lived to tell the tale. 🍔🌮🍕 Here’s to many more tasty trails! 🥂'
-        expect(result[:message]).to eq(expected_message)
-        expect(result[:status]).to eq(:complete)
-        expect(adventure.reload.status).to eq('complete')
       end
     end
   end

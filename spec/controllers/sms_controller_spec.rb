@@ -11,10 +11,10 @@ RSpec.describe SmsController, type: :controller do
     let(:phone_number) { '2095646978' }
 
     context 'when adventure is not found' do
-        before do
-            allow(Adventure).to receive_message_chain(:order, :find_by).and_return(nil)
-            allow(SmsService).to receive(:send_sms)
-          end
+      before do
+        allow(Adventure).to receive_message_chain(:order, :find_by).and_return(nil)
+        allow(SmsService).to receive(:send_sms)
+      end
 
       it 'sends a message about no active adventure and returns' do
         post :receive, params: { 'Body' => 'next', 'From' => phone_number }

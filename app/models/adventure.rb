@@ -41,17 +41,31 @@ class Adventure < ApplicationRecord
   end
 
   def process_next_truck
-    next_truck = self.next_truck
-    if next_truck
-      {
-        message: "🚚 Vroom, vroom! #{next_truck.applicant} is your next stop at #{next_truck.address}, #{next_truck.city}, #{next_truck.state}. Get ready for some tasty treats!", status: nil
-      }
-    else
-      complete
-      {
-        message: '🎉 Congratulations on completing your Food Truck Adventure! 🚚💨 You’ve tasted the best bites in town and lived to tell the tale. 🍔🌮🍕 Here’s to many more tasty trails! 🥂', status: :complete
-      }
-    end
+    advance_to_next_truck! if current_truck_index.zero?
+
+    return complete_message if complete?
+
+    response = next_truck_message
+
+    advance_to_next_truck!
+
+    complete if on_last_truck?
+
+    response
+  end
+
+  def complete_message
+    {
+      message: '🎉 Congratulations on completing your Food Truck Adventure! 🚚💨 You’ve tasted the best bites in town and lived to tell the tale. 🍔🌮🍕 Here’s to many more tasty trails! 🥂',
+      status: :complete
+    }
+  end
+
+  def next_truck_message
+    {
+      message: "🚚 Vroom, vroom! #{next_truck.applicant} is your next stop at #{next_truck.address}, #{next_truck.city}, #{next_truck.state}. Get ready for some tasty treats!",
+      status: nil
+    }
   end
 
   def stop
