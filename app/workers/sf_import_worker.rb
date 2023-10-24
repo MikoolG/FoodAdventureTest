@@ -41,7 +41,7 @@ class SfImportWorker
   end
 
   def update_or_create_food_truck(row)
-    expiration_date = parse_expiration_date(row['ExpirationDate'])
+    parse_expiration_date(row['ExpirationDate'])
     categories = categorize_food(row['FoodItems'])
 
     food_truck = FoodTruck.find_or_initialize_by(applicant: row['Applicant'], address: row['Address'])
@@ -49,11 +49,11 @@ class SfImportWorker
       facility_type: row['FacilityType'],
       location_description: row['LocationDescription'],
       address: row['Address'],
-      state: "CA", # This is SF importer
-      city: "San Francisco", # This is SF importer
+      state: 'CA', # This is SF importer
+      city: 'San Francisco', # This is SF importer
       status: row['Status'],
       food_items: row['FoodItems'],
-      categories: categories,
+      categories:,
       latitude: row['Latitude'],
       longitude: row['Longitude'],
       schedule: row['Schedule'],

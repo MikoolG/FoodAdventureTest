@@ -71,7 +71,7 @@ class Adventure < ApplicationRecord
       adventure_start_time.min,
       adventure_start_time.sec
     ).in_time_zone('Pacific Time (US & Canada)')
-    
+
     combined_datetime.strftime('%a, %d %b %Y %H:%M:%S %Z')
   end
 

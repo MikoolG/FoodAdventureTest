@@ -7,12 +7,12 @@ class FoodTruckOrganizer
 
   def organize
     # Filter by food preference
-    trucks = FoodTruck.where("categories && ARRAY[?]::text[]", @adventure.food_preference)
+    trucks = FoodTruck.where('categories && ARRAY[?]::text[]', @adventure.food_preference)
     # Sort by approximate distance
     sorted_trucks = trucks.sort_by do |truck|
       distance_from_adventure(truck, @adventure)
     end
-    
+
     # Take the number of trucks the user requested
     selected_trucks = sorted_trucks.first(@adventure.number_of_trucks)
 
