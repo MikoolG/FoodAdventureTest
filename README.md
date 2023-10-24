@@ -1,4 +1,13 @@
 # Food Truck Adventure
+![Food Truck Adventure Home Page](https://github.com/Goeken/FoodAdventure/blob/main/app/assets/images/home-page.png)
+
+## Website Example:
+
+The website is designed to provide an interactive and user-friendly experience for creating personalized food truck adventures. You can navigate the various features, select food preferences, specify adventure details, and interact with the adventure messaging system. Check the website out below:
+
+https://food-truck-adventure-222aa5bc5600.herokuapp.com/ 
+
+**Note:** Currently, the Twilio integration on the website does not have webhooks set up. This means that some real-time messaging features might not be fully operational until webhook integration is complete.
 
 ## Setup:
 - **Ruby version:** `3.2.0`
@@ -6,29 +15,37 @@
 - Ensure you run and pass all spec tests.
 - **Note:** You will need to set up your own Twilio credentials.
 
+## API Keys Setup:
+Before running this project, ensure you've set up your own API keys for the following services:
+
+- **Twilio:** Utilized for the adventure messaging functionality. 
+- **Google Maps:** Essential for calculating routes and pinpointing truck locations. 
+
+Make sure you have valid API keys and securely integrate them into your environment or your preferred secrets management tool.
+
 ## UI:
-- UI uses **Tailwind** for styling.
+- UI is powered by **Tailwind** for its styling.
 - **Color Codes:**
   - **Blue:** `#00CAE3`
   - **Pink:** `#FF7F96`
   - **Gray:** `#CDDCE8`
 
 ## Data:
-- An import worker runs every 7 days.
-- Data is read from this CSV link: [Mobile-Food-Facility-Permit](https://data.sfgov.org/Economy-and-Community/Mobile-Food-Facility-Permit/rqzj-sfat/data)
+- An import worker is set to run every 7 days.
+- Data is fetched from this CSV link: [Mobile-Food-Facility-Permit](https://data.sfgov.org/Economy-and-Community/Mobile-Food-Facility-Permit/rqzj-sfat/data)
 
 ## Functionality:
 
 ### 1. Personalized Food Truck Adventure:
 - **User Input:**
-  - **Food Preferences:** Users can select from a list of available cuisines or specific dishes. A dropdown menu is available for ease of selection.
-  - **Number of Trucks:** Users specify how many food trucks they wish to visit.
-  - **Adventure Duration:** Users set their food truck adventure's preferred start and end times.
+  - **Food Preferences:** Users can select from a list of cuisines or specific dishes. A dropdown menu is provided for easier selection.
+  - **Number of Trucks:** Users decide the number of food trucks they wish to explore.
+  - **Adventure Duration:** Users dictate their food truck adventure's start and end times.
 
 ### 2. Adventure Initialization:
-- The system selects available food trucks based on their operational hours and locations.
-- Computes an optimal route.
-- Sends a message at the start time: "Ready for a culinary journey? Head over to [First Truck Name] at [Location]. Bon appétit!"
+- The application picks available food trucks by evaluating their operational hours and locations.
+- Calculates the most efficient route.
+- Dispatches a message at the decided start time: "Ready for a culinary journey? Make your way to [First Truck Name] at [Location]. Bon appétit!"
 
 ### 3. Interactive Messaging System:
 - On arriving at a truck, users send an "arrived" message.
