@@ -57,6 +57,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_21_224249) do
     t.decimal "longitude", precision: 9, scale: 6
     t.string "schedule"
     t.string "days_hours"
+    t.string "city"
+    t.string "state"
     t.boolean "active", default: true
     t.date "expiration_date"
     t.datetime "created_at", null: false

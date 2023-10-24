@@ -14,6 +14,8 @@ class CreateFoodTrucks < ActiveRecord::Migration[7.0]
       t.decimal :longitude, precision: 9, scale: 6
       t.string :schedule
       t.string :days_hours
+      t.string :city
+      t.string :state
       t.boolean :active, default: true
       t.date :expiration_date
 

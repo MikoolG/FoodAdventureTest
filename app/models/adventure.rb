@@ -44,7 +44,7 @@ class Adventure < ApplicationRecord
     next_truck = self.next_truck
     if next_truck
       {
-        message: "🚚 Vroom, vroom! #{next_truck.applicant} is your next stop at #{next_truck.address}. Get ready for some tasty treats!", status: nil
+        message: "🚚 Vroom, vroom! #{next_truck.applicant} is your next stop at #{next_truck.address}, #{next_truck.city}, #{next_truck.state}. Get ready for some tasty treats!", status: nil
       }
     else
       complete
@@ -62,6 +62,19 @@ class Adventure < ApplicationRecord
     update(status: :complete)
   end
 
+  def combined_start_time
+    combined_datetime = DateTime.new(
+      adventure_day.year,
+      adventure_day.month,
+      adventure_day.day,
+      adventure_start_time.hour,
+      adventure_start_time.min,
+      adventure_start_time.sec
+    ).in_time_zone('Pacific Time (US & Canada)')
+    
+    combined_datetime.strftime('%a, %d %b %Y %H:%M:%S %Z')
+  end
+
   private
 
   def status_changed_to_final?
@@ -75,7 +88,7 @@ class Adventure < ApplicationRecord
   def schedule_initial_sms
     return unless status == 'awaiting_start'
 
-    AdventureJob.set(wait_until: adventure_start_time).perform_later(id)
+    AdventureJob.set(wait_until: combined_start_time).perform_later(id)
   end
 
   def organize_food_trucks

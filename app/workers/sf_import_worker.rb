@@ -49,14 +49,16 @@ class SfImportWorker
       facility_type: row['FacilityType'],
       location_description: row['LocationDescription'],
       address: row['Address'],
+      state: "CA", # This is SF importer
+      city: "San Francisco", # This is SF importer
       status: row['Status'],
       food_items: row['FoodItems'],
-      categories:,
+      categories: categories,
       latitude: row['Latitude'],
       longitude: row['Longitude'],
       schedule: row['Schedule'],
       days_hours: row['dayshours'],
-      expiration_date:,
+      expiration_date: parse_expiration_date(row['ExpirationDate']),
       active: true
     )
     food_truck.save!

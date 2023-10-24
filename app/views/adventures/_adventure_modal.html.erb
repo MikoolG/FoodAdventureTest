@@ -40,6 +40,7 @@
           </div>
           <div>
             <%= form.label :adventure_start_time, class: "block text-gray-700" %>
+            <p class="text-sm text-gray-500 mb-2">Time is in PST (Pacific Standard Time).</p>
             <%= form.time_field :adventure_start_time, class: "w-full p-3 border rounded", value: (Time.now + 1.hour).strftime('%H:%M'), required: true %>
           </div>
         </div>

@@ -89,7 +89,7 @@ RSpec.describe Adventure, type: :model do
     context 'when there is a next truck' do
       it 'returns a message with the next truck details' do
         result = adventure.process_next_truck
-        expected_message = "🚚 Vroom, vroom! #{food_truck.applicant} is your next stop at #{food_truck.address}. Get ready for some tasty treats!"
+        expected_message = "🚚 Vroom, vroom! #{food_truck.applicant} is your next stop at #{food_truck.address}, #{food_truck.city}, #{food_truck.state}. Get ready for some tasty treats!"
         expect(result[:message]).to eq(expected_message)
         expect(result[:status]).to be_nil
       end

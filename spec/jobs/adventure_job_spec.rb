@@ -16,7 +16,7 @@ RSpec.describe AdventureJob, type: :job do
     it 'sends an SMS to start the adventure' do
       expect(SmsService).to receive(:send_sms).with(
         adventure.phone_number,
-        "🎉 Your Food Truck Adventure has begun! First stop: #{adventure.next_truck.applicant} at #{adventure.next_truck.address}. Let's roll! 🚚 Type 'next' when you're ready for the next stop, or 'stop' to end your adventure."
+        "🎉 Your Food Truck Adventure has begun! First stop: #{adventure.next_truck.applicant} at #{adventure.next_truck.address}, #{adventure.next_truck.city}, #{adventure.next_truck.state}. Let's roll! 🚚 Type 'next' when you're ready for the next stop, or 'stop' to end your adventure."
       )
       perform_enqueued_jobs do
         described_class.perform_later(adventure.id)
