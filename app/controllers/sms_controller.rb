@@ -6,7 +6,7 @@ class SmsController < ApplicationController
   def receive
     body = params['Body'].strip.downcase
     phone_number = params['From']
-    adventure = Adventure.find_by(phone_number:)
+    adventure = Adventure.where(phone_number: phone_number).order(created_at: :desc).first
 
     if adventure.nil?
       SmsService.send_sms(
