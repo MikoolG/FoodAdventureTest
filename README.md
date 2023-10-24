@@ -7,8 +7,6 @@ The website is designed to provide an interactive and user-friendly experience f
 
 https://food-truck-adventure-222aa5bc5600.herokuapp.com/ 
 
-**Note:** Currently, the Twilio integration on the website does not have webhooks set up. This means that some real-time messaging features might not be fully operational until webhook integration is complete.
-
 ## Setup:
 - **Ruby version:** `3.2.0`
 - **Rails:** `7`
@@ -51,6 +49,8 @@ Make sure you have valid API keys and securely integrate them into your environm
 - On arriving at a truck, users send an "arrived" message.
 - The system replies with personalized messages about the food truck and location.
 - This continues for each truck on the list.
+
+![Example Interaction](https://github.com/Goeken/FoodAdventure/blob/main/app/assets/images/example.jpeg)
 
 ### 4. Emergency Stop:
 - Users can send a "stop" message at any point to end the adventure.
