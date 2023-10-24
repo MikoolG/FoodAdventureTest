@@ -7,11 +7,12 @@ class SmsController < ApplicationController
   def receive
     body = params['Body'].strip.downcase
     phone_number = params['From'].gsub(/\D/, '')
-    adventure = Adventure.where(phone_number: phone_number.to_s).order(created_at: :desc).first
 
     if phone_number.length > 10
       phone_number = phone_number[-10..] # Remove country code by keeping only the last 10 digits
     end
+
+    adventure = Adventure.order(created_at: :desc).find_by(phone_number: phone_number.to_s)
 
     if adventure.nil?
       SmsService.send_sms(
