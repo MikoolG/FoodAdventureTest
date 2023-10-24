@@ -1,84 +1,63 @@
-<div id="modal" class="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 hidden flex justify-center items-start pt-16">
-  <div class="bg-white p-8 rounded-lg w-full mx-auto relative" style="max-width: 600px;">
+<div id="modal" class="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 hidden flex justify-center items-start pt-16" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="bg-white p-8 rounded-lg shadow-lg w-full mx-auto relative" style="max-width: 600px; max-height: 90%;">
     <!-- Close Button -->
-    <button id="closeAdventureBtn" class="absolute top-2 right-2 bg-gray-200 rounded-full p-2">
+    <button id="closeAdventureBtn" class="absolute top-2 right-2 bg-gray-200 rounded-full p-2 hover:bg-gray-300 transition-colors duration-200" aria-label="Close">
       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
       </svg>
     </button>
     <div class="text-center py-4 pb-8">
-      <h2 class="text-4xl font-bold text-gray-900">Begin Adventure</h2>
+      <h2 id="modalTitle" class="text-4xl font-bold text-gray-900">Begin Adventure</h2>
     </div>
     <%= form_with model: @adventure do |form| %>
-        <div class="flex flex-wrap -mx-2 mb-4">
-            <div class="w-full md:w-1/2 px-2 mb-4 md:mb-0">
-                <%= form.label :food_preference, class: "block text-gray-700" %>
-                <%= form.select :food_preference, 
-                    FoodTruck::CATEGORIES.keys, 
-                    {}, 
-                    { class: "w-full p-2 border rounded" } 
-                %>
-            </div>
-            <div class="w-full md:w-1/2 px-2">
-                <%= form.label :number_of_trucks, class: "block text-gray-700" %>
-                <%= form.select :number_of_trucks, 
-                    (1..5).to_a, 
-                    {}, 
-                    { class: "w-full p-2 border rounded" } 
-                %>
-            </div>
-        </div>
-      <div class="flex flex-wrap -mx-2 mb-4">
-        <div class="w-full md:w-1/2 px-2 mb-4 md:mb-0">
+      <div class="space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <%= form.label :food_preference, class: "block text-gray-700" %>
+            <%= form.select :food_preference, FoodTruck::CATEGORIES.keys, {}, { class: "w-full p-3 border rounded" } %>
+          </div>
+          <div>
+            <%= form.label :number_of_trucks, class: "block text-gray-700" %>
+            <%= form.select :number_of_trucks, (1..5).to_a, {}, { class: "w-full p-3 border rounded" } %>
+          </div>
+          <div>
             <%= form.label :city, class: "block text-gray-700" %>
-            <%= form.select :city, 
-                ['San Francisco'], 
-                {}, 
-                { class: "w-full p-2 border rounded" } 
-            %>
-        </div>
-        <div class="w-full md:w-1/2 px-2">
+            <%= form.select :city, ['San Francisco'], {}, { class: "w-full p-3 border rounded" } %>
+          </div>
+          <div>
             <%= form.label :zip_code, class: "block text-gray-700" %>
-            <%= form.text_field :zip_code, 
-                class: "w-full p-2 border rounded", 
-                placeholder: "e.g., 94103", 
-                required: true, 
-                pattern: "\d{5}(-\d{4})?", 
-                title: "Please enter a 5 or 9 digit zip code"
-            %>
-        </div>
-      </div>
-      <div class="flex flex-wrap -mx-2 mb-4">
-        <div class="w-full md:w-1/2 px-2 mb-4 md:mb-0">
+            <%= form.text_field :zip_code, class: "w-full p-3 border rounded", placeholder: "e.g., 94103", required: true, pattern: "[0-9]*", title: "Please enter a 5 digit zip code" %>
+          </div>
+          <div>
             <%= form.label :adventure_day, class: "block text-gray-700" %>
             <%= form.date_field :adventure_day, 
-                class: "w-full p-2 border rounded", 
+                class: "w-full p-3 border rounded", 
                 placeholder: "e.g., YYYY-MM-DD", 
-                required: true 
+                required: true, 
+                value: Date.today,
+                min: (Date.current - 1.day).strftime('%Y-%m-%d')
             %>
-        </div>
-        <div class="w-full md:w-1/2 px-2">
+          </div>
+          <div>
             <%= form.label :adventure_start_time, class: "block text-gray-700" %>
-            <%= form.time_field :adventure_start_time, 
-                class: "w-full p-2 border rounded", 
-                placeholder: "e.g., HH:MM", 
-                required: true 
+            <%= form.time_field :adventure_start_time, class: "w-full p-3 border rounded", value: (Time.now + 1.hour).strftime('%H:%M'), required: true %>
+          </div>
+        </div>
+        <div>
+          <%= form.label :phone_number, class: "block text-gray-700" %>
+          <p class="text-sm text-gray-500 mb-2">We prioritize your privacy. Your phone number will be kept secure and deleted once the adventure is over, ensuring it's never stored longer than necessary.</p>
+          <%= form.text_field :phone_number, 
+                id: "adventure_phone_number",
+                class: "w-full p-3 border rounded", 
+                placeholder: "e.g., (123) 456-7890", 
+                required: true, 
+                title: "Enter a valid phone number format",
+                maxlength: 10
             %>
         </div>
-       </div>
-      <div class="mb-4">
-        <%= form.label :phone_number, class: "block text-gray-700" %>
-        <p class="text-sm text-gray-500 mb-2">We prioritize your privacy. Your phone number will be kept secure and deleted once the adventure is over, ensuring it's never stored longer than necessary.</p>
-        <%= form.text_field :phone_number, 
-            class: "w-full p-2 border rounded", 
-            placeholder: "e.g., (123) 456-7890", 
-            required: true, 
-            pattern: "\d{10}", 
-            title: "Phone number must be 10 digits long" 
-        %>
       </div>
-      <div class="text-center py-4">
-        <button type="submit" class="bg-blue text-white px-8 py-4 rounded">Submit</button>
+      <div class="text-center pt-8">
+        <button type="submit" class="bg-blue text-white px-8 py-4 rounded-lg hover:bg-blue hover:opacity-70 active:bg-blue focus:outline-none focus:ring focus:ring-blue-300 transition-colors duration-200">Submit</button>
       </div>
     <% end %>
   </div>

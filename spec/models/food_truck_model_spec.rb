@@ -7,7 +7,6 @@ RSpec.describe FoodTruck, type: :model do
 
   describe 'validations' do
     it { should validate_presence_of(:applicant) }
-    it { should validate_presence_of(:facility_type) }
     it { should validate_presence_of(:address) }
     it { should validate_presence_of(:status) }
     it { should validate_presence_of(:latitude) }

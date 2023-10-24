@@ -51,7 +51,7 @@ class SfImportWorker
       address: row['Address'],
       status: row['Status'],
       food_items: row['FoodItems'],
-      categories:,
+      categories: categories,
       latitude: row['Latitude'],
       longitude: row['Longitude'],
       schedule: row['Schedule'],

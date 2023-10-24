@@ -21,3 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
   });
+
+  document.getElementById("adventure_phone_number").addEventListener('input', function (e) {
+    e.target.value = e.target.value.replace(/[^\d\s\-\(\)]+/g, '');
+    });

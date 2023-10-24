@@ -6,15 +6,15 @@ class FoodTruck < ApplicationRecord
 
   before_save :normalize_applicant_name
   validates :applicant, uniqueness: true
-  validates :applicant, :facility_type, :address, :status, :latitude, :longitude, presence: true
+  validates :applicant, :address, :status, :latitude, :longitude, presence: true
   validates :applicant, :address, length: { maximum: 255 }
 
   scope :active, -> { where(active: true) }
 
   CATEGORIES = {
-    'Hot Dogs and Sausages' => %w[hot dogs sausage],
-    'Beverages' => %w[beverages soda water juice drinks daiquiris],
-    'Coffee and Tea' => %w[coffee espresso tea matcha chai],
+    'Breakfast Items' => %w[bacon eggs ham breakfast],
+    'Hot Dogs' => %w[hot dogs sausage],
+    'Beverages' => %w[beverages soda water juice drinks daiquiris coffee espresso tea matcha chai],
     'Pastries and Desserts' => %w[pastries croissants dessert sweets ice cream waffle cones flan cobbler donuts
                                   muffins],
     'Vegan' => %w[vegan],
@@ -23,7 +23,6 @@ class FoodTruck < ApplicationRecord
     'Seafood' => %w[lobster crab ceviche tilapia fish],
     'Sandwiches, Melts, and Burgers' => %w[sandwiches melts burgers hamburger],
     'Fries, Chips, and Snacks' => %w[fries snacks chips onion rings kettlecorn],
-    'Breakfast Items' => %w[bacon eggs ham breakfast],
     'Peruvian Food' => %w[peruvian],
     'Middle Eastern Food' => %w[halal gyro kebabs],
     'Bowls' => %w[salad bowls acai],
