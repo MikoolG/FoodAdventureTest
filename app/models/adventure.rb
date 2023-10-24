@@ -37,7 +37,7 @@ class Adventure < ApplicationRecord
   end
 
   def on_last_truck?
-    current_truck_index >= adventure_food_trucks.count - 1
+    current_truck_index >= adventure_food_trucks.count # past the last truck by 1
   end
 
   def process_next_truck

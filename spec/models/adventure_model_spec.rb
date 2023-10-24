@@ -65,7 +65,7 @@ RSpec.describe Adventure, type: :model do
     end
 
     it '#on_last_truck? returns true when on last truck' do
-      adventure.update!(current_truck_index: 2)
+      adventure.update!(current_truck_index: 3) 
       expect(adventure.on_last_truck?).to be_truthy
     end
 
@@ -97,7 +97,9 @@ RSpec.describe Adventure, type: :model do
         expect(result[:status]).to be_nil
       end
     end
+    
   end
+  
 
   describe '#stop' do
     let(:adventure) { create(:adventure, status: 'in_progress') }
