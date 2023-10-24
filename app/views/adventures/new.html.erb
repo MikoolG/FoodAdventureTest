@@ -1,71 +1,146 @@
+<div id="home-page" data-controller="refresh">
 
-<%# Banner %>
-<div class="relative pt-14">
-  <img src="<%= image_url('FoodTruck.png') %>" alt="Banner" class="w-full">
+    <% if @adventure.errors.any? %>
+        <div id="error_explanation">
+            <h2><%= pluralize(@adventure.errors.count, "error") %> prohibited this adventure from being saved:</h2>
 
-  <div class="absolute top-2 left-1/2 transform -translate-x-1/2 text-center p-4 md:bg-transparent md:rounded-none bg-black bg-opacity-40 rounded-lg">
-    <div>
-        <h1 class="text-white md:text-black text-7xl font-bold oldstyle-nums shadow-sm">FOOD TRUCK</h1>
-        <h2 class="text-white md:text-black text-3xl font-semibold shadow-sm">ADVENTURE</h2>
+            <ul>
+            <% @adventure.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+            <% end %>
+            </ul>
+        </div>
+    <% end %>
+
+
+    <%# Banner %>
+    <div class="relative pt-14">
+    <img src="<%= image_url('FoodTruck.png') %>" alt="Banner" class="w-full">
+
+    <div class="absolute top-2 left-1/2 transform -translate-x-1/2 text-center p-4 md:bg-transparent md:rounded-none bg-black bg-opacity-40 rounded-lg">
+        <div>
+            <h1 class="text-white md:text-black text-7xl font-bold oldstyle-nums shadow-sm">FOOD TRUCK</h1>
+            <h2 class="text-white md:text-black text-3xl font-semibold shadow-sm">ADVENTURE</h2>
+        </div>
     </div>
-  </div>
-</div>
-
-<%# Begin Adventure Section %>
-<div class="py-16 bg-gray-100">
-  <div class="text-center">
-    <h2 class="text-4xl font-bold text-gray-900">BEGIN ADVENTURE</h2>
-  </div>
-  <div class="mt-8 max-w-2xl mx-auto">
-    <p class="text-lg text-gray-700 text-center">
-      Embark on a personalized Food Truck Adventure! Select your favorite cuisines or dishes, specify the number of trucks you'd like to visit, and set your adventure timing. Our system will craft an optimal route for you.
-    </p>
-    <div class="text-center pt-8">
-      <button id="beginAdventureBtn" class="bg-pink border-3 border-black rounded-[30px] px-4 py-2 text-white font-bold tracking-wide shadow-md hover:opacity-70">
-          BEGIN ADVENTURE
-      </button>
-    </div>
-  </div>
-</div>
-
-<div class="light-container bg-white pt-20 pb-10">
-    <div data-controller="google-maps" class="flex justify-center rounded-lg overflow-hidden">
-    <div data-google-maps-target="map" class="w-3/4 h-96"></div>
     </div>
 
-    <div class="py-16">
+    <%# Begin Adventure Section %>
+    <div class="py-16 bg-gray-100">
     <div class="text-center">
-        <h2 class="text-4xl font-bold text-gray-900">How It Works</h2>
+        <h2 class="text-4xl font-bold text-gray-900">BEGIN ADVENTURE</h2>
     </div>
     <div class="mt-8 max-w-2xl mx-auto">
-        <ol class="text-lg text-gray-700 list-decimal list-inside">
-        <li>
-            <strong>Select Preferences:</strong> Choose your cuisines or specific dishes, and input any dietary restrictions.
-        </li>
-        <li>
-            <strong>Number of Trucks & Timing:</strong> Specify the number of trucks and set your adventure's start and end times.
-        </li>
-        <li>
-            <strong>Adventure Initialization:</strong> Receive a message at the start time guiding you to the first truck.
-        </li>
-        <li>
-            <strong>Interactive Messaging:</strong> Send "arrived" upon reaching a truck, and "done" once you’re ready to move on.
-        </li>
-        <li>
-            <strong>Emergency Stop:</strong> Send "stop" to pause the adventure anytime.
-        </li>
-        <li>
-            <strong>Safety Measures:</strong> Enjoy a secure messaging system prioritizing your privacy.
-        </li>
-        <li>
-            <strong>Adventure Conclusion:</strong> Receive a congratulatory message upon completing the adventure.
-        </li>
-        <li>
-            <strong>Feedback:</strong> Rate your experience and provide feedback for continual improvement.
-        </li>
-        </ol>
+        <p class="text-lg text-gray-700 text-center">
+        Embark on a personalized Food Truck Adventure! Select your favorite cuisines or dishes, specify the number of trucks you'd like to visit, and set your adventure timing. Our system will craft an optimal route for you.
+        </p>
+        <div class="text-center pt-8">
+        <button data-action="click->modal#open" id="beginAdventureBtn" class="bg-pink border-3 border-black rounded-[30px] px-4 py-2 text-white font-bold tracking-wide shadow-md hover:opacity-70">BEGIN ADVENTURE</button>
+        </div>
     </div>
     </div>
+
+
+    <div class="light-container bg-white pt-20 pb-10">
+        <%# Google maps %>
+        <div data-controller="google-maps" class="flex justify-center rounded-lg overflow-hidden">
+            <div data-google-maps-target="map" class="w-3/4 h-96"></div>
+        </div>
+
+        <%# How it works %>
+        <div class="py-16">
+            <div class="text-center">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4" id="how-it-works">How It Works</h2>
+                <div class="flex justify-center">
+                    <div class="border-b-4 border-blue w-20"></div>
+                </div>
+            </div>
+            <div class="mt-12 max-w-2xl mx-auto">
+                <ol class="text-lg text-gray-700 list-none">
+    <li class="flex items-start mb-8">
+        <div class="flex-shrink-0">
+            <div class="bg-blue text-white rounded-full flex items-center justify-center" style="width: 2rem; height: 2rem;">
+                <span class="text-lg font-bold">1</span>
+            </div>
+        </div>
+        <div class="ml-4">
+            <strong class="text-gray-900">Select Preferences:</strong> Choose your cuisines or specific dishes would like.
+        </div>
+    </li>
+    <li class="flex items-start mb-8">
+        <div class="flex-shrink-0">
+            <div class="bg-blue text-white rounded-full flex items-center justify-center" style="width: 2rem; height: 2rem;">
+                <span class="text-lg font-bold">2</span>
+            </div>
+        </div>
+        <div class="ml-4">
+            <strong class="text-gray-900">Number of Trucks & Timing:</strong> Specify the number of trucks and set your adventure's start time.
+        </div>
+    </li>
+    <li class="flex items-start mb-8">
+        <div class="flex-shrink-0">
+            <div class="bg-blue text-white rounded-full flex items-center justify-center" style="width: 2rem; height: 2rem;">
+                <span class="text-lg font-bold">3</span>
+            </div>
+        </div>
+        <div class="ml-4">
+            <strong class="text-gray-900">Adventure Initialization:</strong> Receive a message at the start time guiding you to the first truck.
+        </div>
+    </li>
+    <li class="flex items-start mb-8">
+        <div class="flex-shrink-0">
+            <div class="bg-blue text-white rounded-full flex items-center justify-center" style="width: 2rem; height: 2rem;">
+                <span class="text-lg font-bold">4</span>
+            </div>
+        </div>
+        <div class="ml-4">
+            <strong class="text-gray-900">Interactive Messaging:</strong> Send "arrived" upon reaching a truck, and "done" once you’re ready to move on.
+        </div>
+    </li>
+    <li class="flex items-start mb-8">
+        <div class="flex-shrink-0">
+            <div class="bg-blue text-white rounded-full flex items-center justify-center" style="width: 2rem; height: 2rem;">
+                <span class="text-lg font-bold">5</span>
+            </div>
+        </div>
+        <div class="ml-4">
+            <strong class="text-gray-900">Emergency Stop:</strong> Send "stop" to pause the adventure anytime.
+        </div>
+    </li>
+    <li class="flex items-start mb-8">
+        <div class="flex-shrink-0">
+            <div class="bg-blue text-white rounded-full flex items-center justify-center" style="width: 2rem; height: 2rem;">
+                <span class="text-lg font-bold">6</span>
+            </div>
+        </div>
+        <div class="ml-4">
+            <strong class="text-gray-900">Safety Measures:</strong> Enjoy a secure messaging system prioritizing your privacy. After every adventure we delete your personal information.
+        </div>
+    </li>
+    <li class="flex items-start mb-8">
+        <div class="flex-shrink-0">
+            <div class="bg-blue text-white rounded-full flex items-center justify-center" style="width: 2rem; height: 2rem;">
+                <span class="text-lg font-bold">7</span>
+            </div>
+        </div>
+        <div class="ml-4">
+            <strong class="text-gray-900">Privacy:</strong> Enjoy a secure messaging system prioritizing your privacy. After every adventure we delete your personal information.
+        </div>
+    </li>
+    <li class="flex items-start mb-8">
+        <div class="flex-shrink-0">
+            <div class="bg-blue text-white rounded-full flex items-center justify-center" style="width: 2rem; height: 2rem;">
+                <span class="text-lg font-bold">8</span>
+            </div>
+        </div>
+        <div class="ml-4">
+            <strong class="text-gray-900">Adventure Conclusion:</strong> Receive a congratulatory message upon completing the adventure.
+        </div>
+    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <%= render 'adventure_modal' %>
 </div>
-    <%# Modal %>
-    <%= render "adventure_modal" %>

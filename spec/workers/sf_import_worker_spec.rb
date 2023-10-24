@@ -23,7 +23,7 @@ RSpec.describe SfImportWorker, type: :worker do
     end
 
     it 'updates existing food trucks if they are present in the CSV file' do
-      create(:food_truck, applicant: 'Existing Applicant', status: 'REQUESTED')
+      create(:food_truck, applicant: 'Existing Applicant', address: '2301 MISSION ST', status: 'REQUESTED')
       SfImportWorker.new.perform
       expect(FoodTruck.find_by(applicant: 'Existing Applicant').status).to eq('APPROVED')
     end

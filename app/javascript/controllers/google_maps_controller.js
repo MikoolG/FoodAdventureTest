@@ -40,7 +40,6 @@ export default class extends Controller {
             scaledSize: new google.maps.Size(20, 30),
         };
         data.forEach(food_truck => {
-            console.log(food_truck)
           const marker = new google.maps.Marker({
             position: { lat: parseFloat(food_truck.latitude), lng: parseFloat(food_truck.longitude)},
             map: this.map,

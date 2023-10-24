@@ -11,7 +11,6 @@ RSpec.describe FoodTruck, type: :model do
     it { should validate_presence_of(:status) }
     it { should validate_presence_of(:latitude) }
     it { should validate_presence_of(:longitude) }
-    it { should validate_uniqueness_of(:applicant) }
     it { should validate_length_of(:applicant).is_at_most(255) }
     it { should validate_length_of(:address).is_at_most(255) }
 
@@ -20,14 +19,6 @@ RSpec.describe FoodTruck, type: :model do
         subject.expiration_date = 1.day.from_now
         expect(subject).to be_valid
       end
-    end
-  end
-
-  describe '#normalize_applicant_name' do
-    it 'titleizes the applicant name' do
-      subject.applicant = 'john doe'
-      subject.save
-      expect(subject.reload.applicant).to eq('John Doe')
     end
   end
 

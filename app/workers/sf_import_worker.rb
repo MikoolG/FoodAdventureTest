@@ -44,7 +44,7 @@ class SfImportWorker
     expiration_date = parse_expiration_date(row['ExpirationDate'])
     categories = categorize_food(row['FoodItems'])
 
-    food_truck = FoodTruck.find_or_initialize_by(applicant: row['Applicant'])
+    food_truck = FoodTruck.find_or_initialize_by(applicant: row['Applicant'], address: row['Address'])
     food_truck.assign_attributes(
       facility_type: row['FacilityType'],
       location_description: row['LocationDescription'],
