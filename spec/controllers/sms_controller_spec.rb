@@ -20,7 +20,7 @@ RSpec.describe SmsController, type: :controller do
         post :receive, params: { 'Body' => 'next', 'From' => phone_number }
         expect(SmsService).to have_received(:send_sms).with(
           phone_number,
-          "🕵️ Oops! It seems like there's no active adventure linked to this number. Craving some culinary quests? Head over to [FoodTruckAdventure.com](https://foodtruckadventure.com) to cook up a new Food Truck Adventure! 🚚🌮"
+          "🕵️ Oops! It seems like there's no active adventure linked to this number #{phone_number}. Craving some culinary quests? Head over to https://food-truck-adventure-222aa5bc5600.herokuapp.com/ to cook up a new Food Truck Adventure! 🚚🌮"
         )
       end
     end
