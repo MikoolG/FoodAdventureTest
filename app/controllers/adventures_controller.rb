@@ -20,14 +20,12 @@ class AdventuresController < ApplicationController
     @adventure = Adventure.find(params[:id])
   end
 
-  def adventure_begins
-
-  end
+  def adventure_begins; end
 
   private
 
   def adventure_params
-    params.require(:adventure).permit(:phone_number,:city, :zip_code, :food_preference, :number_of_trucks, :adventure_day,
+    params.require(:adventure).permit(:phone_number, :city, :zip_code, :food_preference, :number_of_trucks, :adventure_day,
                                       :adventure_start_time)
   end
 end
