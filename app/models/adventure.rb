@@ -24,7 +24,7 @@ class Adventure < ApplicationRecord
   after_validation :geocode
 
   before_update :clear_phone_number, if: :status_changed_to_final?
-  after_create :schedule_initial_sms
+  after_create :organize_food_trucks, :schedule_initial_sms
 
   def next_truck
     adventure_food_trucks.find_by(order: current_truck_index)&.food_truck

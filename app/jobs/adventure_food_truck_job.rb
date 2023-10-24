@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class AdventureFoodTruckJob < ApplicationJob
   queue_as :default
 
