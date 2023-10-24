@@ -7,8 +7,7 @@ class SmsController < ApplicationController
   def receive
     body = params['Body'].strip.downcase
     phone_number = params['From']
-    adventure = Adventure.where(phone_number: phone_number).order(created_at: :desc).first
-
+    adventure = Adventure.where(phone_number:).order(created_at: :desc).first
     if adventure.nil?
       SmsService.send_sms(
         phone_number,
@@ -25,11 +24,11 @@ class SmsController < ApplicationController
 
   def validate_twilio_request
     twilio_signature = request.headers['HTTP_X_TWILIO_SIGNATURE']
-  
+
     validator = Twilio::Security::RequestValidator.new(Rails.application.credentials.dig(:twilio, :auth_token))
-  
-    unless validator.validate(request.original_url, request.POST, twilio_signature)
-      render plain: 'Unauthorized request', status: :unauthorized
-    end
+
+    return if validator.validate(request.original_url, request.POST, twilio_signature)
+
+    render plain: 'Unauthorized request', status: :unauthorized
   end
 end
