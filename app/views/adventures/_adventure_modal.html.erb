@@ -40,7 +40,7 @@
           </div>
           <div>
             <%= form.label "Adventure Start Time (PST)", class: "block text-gray-700" %>
-            <%= form.time_field :adventure_start_time, class: "w-full p-3 border rounded", value: (Time.now + 1.hour).strftime('%H:%M'), required: true %>
+            <%= form.time_field :adventure_start_time, class: "w-full p-3 border rounded", value: (Time.current + 1.hour).strftime('%H:%M'), required: true %>
           </div>
         </div>
         <div>
