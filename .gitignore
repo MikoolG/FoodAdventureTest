@@ -4,8 +4,10 @@
 # or operating system, you probably want to add a global ignore instead:
 #   git config --global core.excludesfile '~/.gitignore_global'
 
-# Ignore bundler config.
+# Ignore bundler config and vendored gems
 /.bundle
+/vendor/bundle/
+/vendor/cache/
 
 # Ignore all logfiles and tempfiles.
 /log/*
@@ -29,6 +31,52 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+/config/credentials/*.key
 
 /app/assets/builds/*
 !/app/assets/builds/.keep
+
+# Ignore node modules
+/node_modules
+
+# Ignore environment variables
+/.env
+/.env.*
+!/.env.example
+
+# Ignore database files
+*.sqlite3
+*.sqlite3-journal
+*.sqlite3-*
+
+# Ignore coverage reports
+/coverage/
+
+# Ignore RuboCop cache
+.rubocop-*
+
+# Ignore Byebug command history
+.byebug_history
+
+# Ignore Spring files
+/spring/*.pid
+
+# Ignore test result cache
+/spec/examples.txt
+
+# Ignore VCR cassettes (uncomment if you want to regenerate them)
+# /spec/fixtures/vcr_cassettes/
+
+# Ignore OS files
+.DS_Store
+Thumbs.db
+
+# Ignore IDE files
+/.vscode
+/.idea
+*.swp
+*.swo
+*~
+
+# Ignore Tailwind output
+/app/assets/builds/tailwind.css

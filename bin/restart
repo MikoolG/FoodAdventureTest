@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# Restart Food Truck Adventure
+
+./bin/stop
+sleep 2
+./bin/start

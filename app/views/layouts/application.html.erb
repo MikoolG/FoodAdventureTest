@@ -22,6 +22,12 @@
       <%= yield %>
       <%= render "shared/footer" %>
     </main>
+    <script>
+      // Global callback for Google Maps API
+      window.initMap = function() {
+        console.log('Google Maps API loaded');
+      };
+    </script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBK-9mdhn3Ib3rqbkh8ay5mh8xBXZs7PGg&libraries=places&callback=initMap"></script>
   </body>
 </html>

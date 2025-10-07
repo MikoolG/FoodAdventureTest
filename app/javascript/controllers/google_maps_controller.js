@@ -2,12 +2,24 @@ import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
     static targets = ["map"];
-  
+
     connect() {
-      this.initMap();
-      this.loadMarkers();
+      // Wait for Google Maps API to load
+      if (typeof google !== 'undefined' && google.maps) {
+        this.initMap();
+        this.loadMarkers();
+      } else {
+        // If not loaded yet, wait for the global callback
+        const checkGoogleMaps = setInterval(() => {
+          if (typeof google !== 'undefined' && google.maps) {
+            clearInterval(checkGoogleMaps);
+            this.initMap();
+            this.loadMarkers();
+          }
+        }, 100);
+      }
     }
-  
+
     initMap() {
       const mapOptions = {
         center: { lat: 37.76008693198700, lng: -122.41880648110100 },

@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+# Stop all Food Truck Adventure services
+
+set -e
+
+# Colors for output
+RED='\033[0;31m'
+BLUE='\033[0;34m'
+GREEN='\033[0;32m'
+NC='\033[0m' # No Color
+
+echo -e "${BLUE}🛑 Stopping Food Truck Adventure...${NC}\n"
+
+# Stop Rails server if PID file exists
+if [ -f tmp/pids/server.pid ]; then
+    RAILS_PID=$(cat tmp/pids/server.pid)
+    if ps -p $RAILS_PID > /dev/null 2>&1; then
+        echo -e "${BLUE}   Stopping Rails server...${NC}"
+        kill $RAILS_PID 2>/dev/null || true
+    fi
+    rm -f tmp/pids/server.pid
+fi
+
+# Stop any process on port 3000
+if lsof -Pi :3000 -sTCP:LISTEN -t >/dev/null 2>&1; then
+    echo -e "${BLUE}   Stopping Rails on port 3000...${NC}"
+    kill $(lsof -ti:3000) 2>/dev/null || true
+fi
+
+# Stop Sidekiq
+if [ -f tmp/pids/sidekiq.pid ]; then
+    SIDEKIQ_PID=$(cat tmp/pids/sidekiq.pid)
+    if ps -p $SIDEKIQ_PID > /dev/null 2>&1; then
+        echo -e "${BLUE}   Stopping Sidekiq...${NC}"
+        kill -TERM $SIDEKIQ_PID 2>/dev/null || true
+        sleep 2
+        kill -KILL $SIDEKIQ_PID 2>/dev/null || true
+    fi
+    rm -f tmp/pids/sidekiq.pid
+fi
+
+# Kill any remaining sidekiq processes for this project
+pkill -f "sidekiq.*config/sidekiq.yml" 2>/dev/null || true
+
+# Kill any remaining puma processes for this project
+pkill -f "puma.*3000" 2>/dev/null || true
+
+# Wait a moment for clean shutdown
+sleep 1
+
+echo -e "\n${GREEN}✅ All services stopped${NC}\n"
